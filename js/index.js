@@ -2,21 +2,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //do work
     createBoard();
     drawBoard();
-    player = new Player();
+    player = new Player("001");
 });
 
 ////// Variables & Constants //////
 var board = document.getElementById("board");
-var actors = document.getElementById("actors");
 
 const boardWidth = 600;
 const boardHeight = 600;
 
-var player = null;
-
 ////// Functions //////
 function createBoard(){
-    //adds obstacles to the board
+    //Add a goal
+    var ctx = board.getContext("2d");
+        
+    ctx.fillStyle="#FF0000";    
+    ctx.fillRect(0,0,boardWidth,50);
+    ctx.stroke();
+
+    //Add obstacles
+    //TODO
 }
 
 function drawBoard(){

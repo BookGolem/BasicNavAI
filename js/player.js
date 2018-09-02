@@ -1,6 +1,6 @@
 //The player's class and abilities
 
-var Player = function(){
+var Player = function(playerID){
     //Player abilities
     this.moveUp = function(){
         this.position.y-=5;
@@ -30,22 +30,38 @@ var Player = function(){
 
     //Initiate player stats
     this.score = 0;
+    this.remainingMoves = 100;
     this.position = new Coordinate(300,550);
+    this.id = playerID;
     
     //Initiate player
-    this.canvas = createCanvas();
+    this.canvas = createCanvas(this.id);
     this.draw();
 }
 
-function createCanvas(){
+function createCanvas(id){
     var canv = document.createElement('canvas');
-    canv.id = 'player';
+    canv.id = id;
     canv.width = "600";
     canv.height = "600";
-    canv.class="canvas"
+    canv.class="canvas";
     canv.style="z-index: 1";
     
     document.getElementById('canvases').appendChild(canv); // adds the canvas to #someBox
 
     return canv;
+}
+
+function calculateScore(position){
+    //Returns the player's final score. Will have to change based on circumstances.
+    //Score the player based on proximity to y=50.
+
+    var score = 0;
+    if(position.y<=50){
+        score = 1000;
+    }else{
+        score = 1000 - position.y;
+    }
+
+    return score;
 }
