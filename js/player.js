@@ -2,37 +2,39 @@
 
 var Player = function(playerID){
     //Player abilities
-    this.moveUp = function(){
-        this.position.y-=5;
-        this.draw();
-    };
 
-    this.moveDown = function(){
-        this.position.y+=5;
-        this.draw();
-    };
+    this.move = function(vector){
+        //Accepts a Coordinate object.
+        if(!this.dead){
+            this.accelleration.x += vector.x;
+            if(this.accelleration.x>5){this.accelleration.x=5}
+            if(this.accelleration.x<-5){this.accelleration.x=-5}
 
-    this.moveRight = function(){
-        this.position.x+=5;
-        this.draw();
-    };
+            this.accelleration.y += vector.y;
+            if(this.accelleration.y>5){this.accelleration.y=5}
+            if(this.accelleration.y<-5){this.accelleration.y=-5}
+            
+            this.position.x += this.accelleration.x;
+            this.position.y += this.accelleration.y;
+            this.draw();
 
-    this.moveLeft = function(){
-        this.position.x-=5;
-        this.draw();
-    };
+            checkIsDead(this);
+        }
+    }
 
     this.draw = function(){
         var ctx = this.canvas.getContext("2d");
         ctx.clearRect(0, 0, boardWidth, boardHeight);
-        ctx.fillRect(this.position.x-1,this.position.y-1,3,3);       
+        ctx.fillRect(this.position.x-1,this.position.y-1,3,3);  //The player is a 3x3 pixel square.
     };
 
     //Initiate player stats
     this.score = 0;
-    this.remainingMoves = 100;
+    this.accelleration = new Coordinate(0, 0);
     this.position = new Coordinate(300,550);
     this.id = playerID;
+    this.brain = new Brain();
+    this.dead = false;
     
     //Initiate player
     this.canvas = createCanvas(this.id);

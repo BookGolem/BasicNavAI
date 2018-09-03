@@ -32,8 +32,26 @@ function drawBoard(){
     ctx.stroke();
 }
 
-////// Classes //////
+function runGame(){
+    //Runs all of the AIs.
+    while(player.brain.currentMove < player.brain.moves.length){
+        player.move(player.brain.moves[player.brain.currentMove]);
+        player.brain.currentMove++;
+    }
+}
 
+////// Game Logic ///////
+function checkIsDead(player){
+    //Checks whether the player is dead
+    if(player.dead){
+        return true;
+    }else if(player.position.x > 600 || player.position.x < 0 || player.position.y > 600 || player.position.y < 0){
+        player.dead = true;
+        return true;
+    }
+}
+
+////// Classes //////
 var Coordinate = function(x, y){
     this.x = x,
     this.y = y
