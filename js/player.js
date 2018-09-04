@@ -1,6 +1,6 @@
 //The player's class and abilities
 
-var Player = function(playerID){
+var Player = function(playerID, numMoves){
     //Player abilities
 
     this.move = function(vector){
@@ -33,7 +33,7 @@ var Player = function(playerID){
     this.accelleration = new Coordinate(0, 0);
     this.position = new Coordinate(300,550);
     this.id = playerID;
-    this.brain = new Brain();
+    this.brain = new Brain(numMoves);
     this.dead = false;
     
     //Initiate player

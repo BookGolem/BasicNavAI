@@ -1,11 +1,11 @@
 //The AI brain that determines moves for the player.
 
-var Brain = function(){
+var Brain = function(numMoves){
     this.moves = [];
     this.currentMove = 0;
 
     this.generateMoves = function(){
-        for(var i = 0; i < 400; i++){
+        for(var i = 0; i < numMoves; i++){
             var x = randomIntFromInterval(-1,1);
             var y = randomIntFromInterval(-1,1);
 
