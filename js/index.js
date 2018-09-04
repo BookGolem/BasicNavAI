@@ -4,16 +4,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
     drawBoard();
 
     //Create players
-    player = new Player("001", brainLength);
+    //var player = new Player("001", brainLength);
+
+    for(var i = 0; i<numberOfPlayers; i++){
+        players.push(new Player(i, brainLength));
+    }
 });
 
 ////// Variables & Constants //////
 var board = document.getElementById("board");
+var players = [];
 
 const boardWidth = 600;
 const boardHeight = 600;
 
 const brainLength = 400;
+const numberOfPlayers = 100;
 
 
 ////// Functions //////
@@ -39,13 +45,16 @@ function drawBoard(){
 
 function runGame(moveNumber){
     //Runs all of the AIs.
-    //while(player.brain.currentMove < player.brain.moves.length){
+    players.forEach(function(player){
         player.move(player.brain.moves[player.brain.currentMove]);
         player.brain.currentMove++;
-    //}
+    })
+
     moveNumber++;
     if(moveNumber <= brainLength){
         setTimeout(function(){runGame(moveNumber)}, 33);
+    }else{
+        console.log("Game Ended");
     }
 }
 
