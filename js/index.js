@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+    //Set Variables
+    goalLocation = new Coordinate(301, 50);
+
     //do work
     createBoard();
     drawBoard();
@@ -16,6 +19,10 @@ var players = [];
 const boardWidth = 601;
 const boardHeight = 601;
 
+const goalX = 301;
+const goalY = 50;
+var goalLocation = null;
+
 const brainLength = 400;
 const numberOfPlayers = 100;
 
@@ -26,7 +33,7 @@ function createBoard(){
     var ctx = board.getContext("2d");
         
     ctx.fillStyle="#FF0000";    
-    ctx.fillRect(299,48,5,5);   //Target point is (301, 50)
+    ctx.fillRect(goalLocation.x-2,goalLocation.y-2,5,5);   //Target point is (301, 50)
     ctx.stroke();
 
     //Add obstacles
@@ -46,8 +53,7 @@ function runGame(moveNumber){
     
     if(moveNumber <= brainLength){
         players.forEach(function(player){
-            player.move(player.brain.moves[player.brain.currentMove]);
-            player.brain.currentMove++;
+            player.move();
         });
 
         moveNumber++;
@@ -56,7 +62,7 @@ function runGame(moveNumber){
     }else{
         console.log("Game Ended");
         players.forEach(function(player){
-            player.score = calculateScore(player.position);
+            player.score = calculateScore(player);
         });
     }
 }
@@ -65,9 +71,6 @@ function runGame(moveNumber){
 function checkIsDead(player){
     //Checks whether the player is dead
     if(player.dead){
-        return true;
-    }else if(player.position.x > boardWidth || player.position.x < 0 || player.position.y > boardHeight || player.position.y < 0){
-        player.dead = true;
         return true;
     }else if(player.brain.currentMove > player.brain.moves.length-1){
         player.dead = true;

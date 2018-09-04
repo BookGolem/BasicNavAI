@@ -3,10 +3,11 @@
 var Player = function(playerID, numMoves){
     //Player abilities
 
-    this.move = function(vector){
+    this.move = function(){
         //Accepts a Coordinate object.
-        checkIsDead(this);
-        if(!this.dead){
+        var vector = this.brain.moves[this.brain.currentMove];
+
+        if(!this.dead && !this.atGoal){
             this.accelleration.x += vector.x;
             if(this.accelleration.x>5){this.accelleration.x=5}
             if(this.accelleration.x<-5){this.accelleration.x=-5}
@@ -18,6 +19,17 @@ var Player = function(playerID, numMoves){
             this.position.x += this.accelleration.x;
             this.position.y += this.accelleration.y;
             this.draw();
+
+            //Set player to Dead if it's out of bounds or out of moves, or AtGoal if it's at the goal.
+            if(this.position.x > boardWidth || this.position.x < 0 || this.position.y > boardHeight || this.position.y < 0){
+                this.dead = true;
+            }else if(this.position.x == goalLocation.x && this.position.y == goalLocation.y){
+                this.atGoal = true;
+            }else if(this.brain.currentMove < brainLength-1){
+                this.brain.currentMove++;
+            }else{
+                this.dead = true;
+            }
 
         }
     }
@@ -35,6 +47,7 @@ var Player = function(playerID, numMoves){
     this.id = playerID;
     this.brain = new Brain(numMoves);
     this.dead = false;
+    this.atGoal = false;
     
     //Initiate player
     this.canvas = createCanvas(this.id);
@@ -54,17 +67,21 @@ function createCanvas(id){
     return canv;
 }
 
-function calculateScore(position){
+function calculateScore(player){
     //Accepts a Coordinate. Returns the player's final score.
     //Will have to change based on circumstances.
-    //Score the player based on proximity to Coordinate (301, 50).
-    var goalLocation = new Coordinate(301, 50);
+    //Score the player based on proximity to goalLocation (defined in Index).
     var score = 0;
 
-    var b = position.x - goalLocation.x;
-    var c = position.y - goalLocation.y;
+    if(player.atGoal){
+        score = (1/16) + (4000/player.brain.currentMove*player.brain.currentMove);
+    }else{
+        var position = player.position;
+        
+        var b = position.x - goalLocation.x;
+        var c = position.y - goalLocation.y;
 
-    var score = (b*b) + (c*c); //Pythagoras. Score remains squared to encourage getting closer to the goal. 
-
+        var score = 1/((b*b) + (c*c)); //Pythagoras. Score remains squared to encourage getting closer to the goal. Then inverted.
+    }
     return score;
 }
