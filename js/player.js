@@ -23,7 +23,7 @@ var Player = function(playerID, numMoves){
             //Set player to Dead if it's out of bounds or out of moves, or AtGoal if it's at the goal.
             if(this.position.x > boardWidth || this.position.x < 0 || this.position.y > boardHeight || this.position.y < 0){
                 this.dead = true;
-            }else if(this.position.x == goalLocation.x && this.position.y == goalLocation.y){
+            }else if((this.position.x > goalLocation.x-2 && this.position.x < goalLocation.x+2) && (this.position.y > goalLocation.y-2 && this.position.y < goalLocation.y+2)){ //(this.position.x == goalLocation.x && this.position.y == goalLocation.y){
                 this.atGoal = true;
             }else if(this.brain.currentMove < brainLength-1){
                 this.brain.currentMove++;
@@ -48,6 +48,7 @@ var Player = function(playerID, numMoves){
     this.brain = new Brain(numMoves);
     this.dead = false;
     this.atGoal = false;
+    this.isBest = false;
     
     //Initiate player
     this.canvas = createCanvas(this.id);
@@ -74,7 +75,7 @@ function calculateScore(player){
     var score = 0;
 
     if(player.atGoal){
-        score = (1/16) + (4000/player.brain.currentMove*player.brain.currentMove);
+        score = 4000/(player.brain.currentMove*player.brain.currentMove);
     }else{
         var position = player.position;
         

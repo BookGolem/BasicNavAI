@@ -58,7 +58,7 @@ function runGame(moveNumber){
 
         moveNumber++;
 
-        setTimeout(function(){runGame(moveNumber)}, 33);
+        setTimeout(function(){runGame(moveNumber)}, 25);
     }else{
         console.log("Game Ended");
         players.forEach(function(player){
