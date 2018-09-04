@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     drawBoard();
 
     //Create players
-    //var player = new Player("001", brainLength);
-
     for(var i = 0; i<numberOfPlayers; i++){
         players.push(new Player(i, brainLength));
     }
@@ -15,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 var board = document.getElementById("board");
 var players = [];
 
-const boardWidth = 600;
-const boardHeight = 600;
+const boardWidth = 601;
+const boardHeight = 601;
 
 const brainLength = 400;
 const numberOfPlayers = 100;
@@ -28,7 +26,7 @@ function createBoard(){
     var ctx = board.getContext("2d");
         
     ctx.fillStyle="#FF0000";    
-    ctx.fillRect(0,0,boardWidth,50);
+    ctx.fillRect(299,48,5,5);   //Target point is (301, 50)
     ctx.stroke();
 
     //Add obstacles
@@ -45,16 +43,21 @@ function drawBoard(){
 
 function runGame(moveNumber){
     //Runs all of the AIs.
-    players.forEach(function(player){
-        player.move(player.brain.moves[player.brain.currentMove]);
-        player.brain.currentMove++;
-    })
-
-    moveNumber++;
+    
     if(moveNumber <= brainLength){
+        players.forEach(function(player){
+            player.move(player.brain.moves[player.brain.currentMove]);
+            player.brain.currentMove++;
+        });
+
+        moveNumber++;
+
         setTimeout(function(){runGame(moveNumber)}, 33);
     }else{
         console.log("Game Ended");
+        players.forEach(function(player){
+            player.score = calculateScore(player.position);
+        });
     }
 }
 
@@ -63,9 +66,14 @@ function checkIsDead(player){
     //Checks whether the player is dead
     if(player.dead){
         return true;
-    }else if(player.position.x > 600 || player.position.x < 0 || player.position.y > 600 || player.position.y < 0){
+    }else if(player.position.x > boardWidth || player.position.x < 0 || player.position.y > boardHeight || player.position.y < 0){
         player.dead = true;
         return true;
+    }else if(player.brain.currentMove > player.brain.moves.length-1){
+        player.dead = true;
+        return true;
+    }else{
+        return false;
     }
 }
 

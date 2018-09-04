@@ -5,6 +5,7 @@ var Player = function(playerID, numMoves){
 
     this.move = function(vector){
         //Accepts a Coordinate object.
+        checkIsDead(this);
         if(!this.dead){
             this.accelleration.x += vector.x;
             if(this.accelleration.x>5){this.accelleration.x=5}
@@ -18,7 +19,6 @@ var Player = function(playerID, numMoves){
             this.position.y += this.accelleration.y;
             this.draw();
 
-            checkIsDead(this);
         }
     }
 
@@ -55,15 +55,16 @@ function createCanvas(id){
 }
 
 function calculateScore(position){
-    //Returns the player's final score. Will have to change based on circumstances.
-    //Score the player based on proximity to y=50.
-
+    //Accepts a Coordinate. Returns the player's final score.
+    //Will have to change based on circumstances.
+    //Score the player based on proximity to Coordinate (301, 50).
+    var goalLocation = new Coordinate(301, 50);
     var score = 0;
-    if(position.y<=50){
-        score = 1000;
-    }else{
-        score = 1000 - position.y;
-    }
+
+    var b = position.x - goalLocation.x;
+    var c = position.y - goalLocation.y;
+
+    var score = (b*b) + (c*c); //Pythagoras. Score remains squared to encourage getting closer to the goal. 
 
     return score;
 }
