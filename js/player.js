@@ -57,8 +57,8 @@ var Player = function(playerID, numMoves){
 function createCanvas(id){
     var canv = document.createElement('canvas');
     canv.id = id;
-    canv.width = "600";
-    canv.height = "600";
+    canv.width = boardWidth;
+    canv.height = boardHeight;
     canv.class="canvas";
     canv.style="z-index: 1";
     
