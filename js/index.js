@@ -14,10 +14,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
     //Set up listeners on page
     document.getElementById("runButton").addEventListener("click", function(){
         runGame(0);
+        document.getElementById("runButton").disabled = true;
     });
     document.getElementById("mutateButton").addEventListener("click", function(){
         players = selectNextGeneration(players);
+        generation++;
+        document.getElementById("gen").innerHTML = generation;
+        document.getElementById("mutateButton").disabled = true;
+        document.getElementById("runButton").disabled = false;
     });
+    document.getElementById("mutateButton").disabled = true;
 });
 
 ////// Variables & Constants //////
@@ -34,7 +40,7 @@ var goalLocation = null;
 const brainLength = 400;
 const numberOfPlayers = 100;
 
-
+var generation = 0;
 ////// Functions //////
 function createBoard(){
     //Add a goal
@@ -72,6 +78,7 @@ function runGame(moveNumber){
         players.forEach(function(player){
             player.score = calculateScore(player);
         });
+        document.getElementById("mutateButton").disabled = false;
     }
 }
 
