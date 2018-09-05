@@ -85,3 +85,12 @@ function mutateBrain(originalBrain){
     }
     return mutatedBrain;
 }
+
+function drawPlayers(players){
+    var ctx = document.getElementById("players").getContext("2d");
+
+    ctx.clearRect(0, 0, boardWidth, boardHeight); //clear the board
+    players.forEach(function(player){
+        ctx.fillRect(player.position.x-1,player.position.y-1,3,3);
+    });
+}

@@ -18,7 +18,6 @@ var Player = function(playerID, numMoves, isProgenitor){
             
             this.position.x += this.accelleration.x;
             this.position.y += this.accelleration.y;
-            this.draw();
 
             //Set player to Dead if it's out of bounds or out of moves, or AtGoal if it's at the goal.
             if(this.position.x > boardWidth || this.position.x < 0 || this.position.y > boardHeight || this.position.y < 0){
@@ -34,12 +33,6 @@ var Player = function(playerID, numMoves, isProgenitor){
         }
     }
 
-    this.draw = function(){
-        var ctx = this.canvas.getContext("2d");
-        ctx.clearRect(0, 0, boardWidth, boardHeight);
-        ctx.fillRect(this.position.x-1,this.position.y-1,3,3);  //The player is a 3x3 pixel square.
-    };
-
     this.extractBrain = function(){
         return this.brain;
     }
@@ -54,27 +47,6 @@ var Player = function(playerID, numMoves, isProgenitor){
     this.atGoal = false;
     this.isBest = false;
     
-    //Initiate player
-    if(isProgenitor){
-        this.canvas = createCanvas(this.id);
-    }else{
-        this.canvas = document.getElementById(this.id);
-    }
-    
-    this.draw();
-}
-
-function createCanvas(id){
-    var canv = document.createElement('canvas');
-    canv.id = id;
-    canv.width = boardWidth;
-    canv.height = boardHeight;
-    canv.class="canvas";
-    canv.style="z-index: 1";
-    
-    document.getElementById('canvases').appendChild(canv); // adds the canvas to #someBox
-
-    return canv;
 }
 
 function calculateScore(player){

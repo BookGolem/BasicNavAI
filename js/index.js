@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     for(var i = 0; i<numberOfPlayers; i++){
         players.push(new Player(i, brainLength, true));
     }
+    drawPlayers(players);
 
     //Set up listeners on page
     document.getElementById("runButton").addEventListener("click", function(){
@@ -38,7 +39,7 @@ const goalY = 50;
 var goalLocation = null;
 
 const brainLength = 400;
-const numberOfPlayers = 100;
+const numberOfPlayers = 500;
 
 var generation = 0;
 var bestMoves = brainLength;
@@ -79,7 +80,7 @@ function runGame(moveNumber){
                 }
             });
         }
-
+        drawPlayers(players);
         setTimeout(function(){runGame(moveNumber)}, 25);
     }else{
         console.log("Game Ended");
@@ -88,6 +89,7 @@ function runGame(moveNumber){
         });
         document.getElementById("mutateButton").disabled = false;
     }
+
 }
 
 ////// Game Logic ///////
