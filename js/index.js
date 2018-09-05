@@ -10,6 +10,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     for(var i = 0; i<numberOfPlayers; i++){
         players.push(new Player(i, brainLength, true));
     }
+
+    //Set up listeners on page
+    document.getElementById("runButton").addEventListener("click", function(){
+        runGame(0);
+    });
+    document.getElementById("mutateButton").addEventListener("click", function(){
+        players = selectNextGeneration(players);
+    });
 });
 
 ////// Variables & Constants //////

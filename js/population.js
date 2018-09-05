@@ -18,7 +18,7 @@ function selectNextGeneration(currentGeneration){
     var newGeneration = [];
 
     //clone best player's brain
-    bestPlayer = new Player(1, 0, false)
+    bestPlayer = new Player(0, 0, false)
     bestPlayer.brain = findBestPlayer(currentGeneration).extractBrain();
     bestPlayer.brain.currentMove = 0;
 

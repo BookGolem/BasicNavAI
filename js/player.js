@@ -84,7 +84,7 @@ function calculateScore(player){
     var score = 0;
 
     if(player.atGoal){
-        score = 4000/(player.brain.currentMove*player.brain.currentMove);
+        score = 10000/(player.brain.currentMove*player.brain.currentMove);
     }else{
         var position = player.position;
         

@@ -3,3 +3,15 @@ canvas{
     left: 10;
     top: 10;
 }
+
+#info{
+    position: absolute;
+    left: 200;
+    top: 619;
+}
+
+#controls{
+    position: absolute;
+    left: 10;
+    top: 621;
+}
