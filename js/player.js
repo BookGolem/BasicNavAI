@@ -22,7 +22,7 @@ var Player = function(playerID, numMoves, isProgenitor){
             //Set player to Dead if it's out of bounds or out of moves, or AtGoal if it's at the goal.
             if(this.position.x > boardWidth || this.position.x < 0 || this.position.y > boardHeight || this.position.y < 0){
                 this.dead = true;
-            }else if((this.position.x > goalLocation.x-2 && this.position.x < goalLocation.x+2) && (this.position.y > goalLocation.y-2 && this.position.y < goalLocation.y+2)){ //(this.position.x == goalLocation.x && this.position.y == goalLocation.y){
+            }else if((this.position.x > goalLocation.x-2 && this.position.x < goalLocation.x+2) && (this.position.y > goalLocation.y-2 && this.position.y < goalLocation.y+2)){ 
                 this.atGoal = true;
             }else if(this.brain.currentMove < brainLength-1){
                 this.brain.currentMove++;

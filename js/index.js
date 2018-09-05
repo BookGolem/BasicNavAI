@@ -39,7 +39,7 @@ const goalY = 50;
 var goalLocation = null;
 
 const brainLength = 400;
-const numberOfPlayers = 500;
+const numberOfPlayers = 1000;
 
 var generation = 0;
 var bestMoves = brainLength;
