@@ -1,6 +1,6 @@
 //The player's class and abilities
 
-var Player = function(playerID, numMoves){
+var Player = function(playerID, numMoves, isProgenitor){
     //Player abilities
 
     this.move = function(){
@@ -40,6 +40,10 @@ var Player = function(playerID, numMoves){
         ctx.fillRect(this.position.x-1,this.position.y-1,3,3);  //The player is a 3x3 pixel square.
     };
 
+    this.extractBrain = function(){
+        return this.brain;
+    }
+
     //Initiate player stats
     this.score = 0;
     this.accelleration = new Coordinate(0, 0);
@@ -51,7 +55,12 @@ var Player = function(playerID, numMoves){
     this.isBest = false;
     
     //Initiate player
-    this.canvas = createCanvas(this.id);
+    if(isProgenitor){
+        this.canvas = createCanvas(this.id);
+    }else{
+        this.canvas = document.getElementById(this.id);
+    }
+    
     this.draw();
 }
 

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     //Create players
     for(var i = 0; i<numberOfPlayers; i++){
-        players.push(new Player(i, brainLength));
+        players.push(new Player(i, brainLength, true));
     }
 });
 
