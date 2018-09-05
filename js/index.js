@@ -41,6 +41,7 @@ const brainLength = 400;
 const numberOfPlayers = 100;
 
 var generation = 0;
+var bestMoves = brainLength;
 ////// Functions //////
 function createBoard(){
     //Add a goal
@@ -65,12 +66,19 @@ function drawBoard(){
 function runGame(moveNumber){
     //Runs all of the AIs.
     
-    if(moveNumber <= brainLength){
+    if(moveNumber <= bestMoves){
         players.forEach(function(player){
             player.move();
         });
 
         moveNumber++;
+        if(moveNumber > bestMoves){
+            players.forEach(function(player){
+                if(!player.atGoal){
+                    player.dead = true;
+                }
+            });
+        }
 
         setTimeout(function(){runGame(moveNumber)}, 25);
     }else{
