@@ -11,6 +11,9 @@ function findBestPlayer(playerSet){
     });
 
     playerSet[bestPlayerIndex].isBest = true;
+    if(playerSet[bestPlayerIndex].atGoal){
+        document.getElementById("bestMoves").innerHTML = playerSet[bestPlayerIndex].brain.currentMove;
+    }
     return(playerSet[bestPlayerIndex]);
 }
 
