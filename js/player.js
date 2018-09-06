@@ -24,6 +24,8 @@ var Player = function(playerID, numMoves, isProgenitor){
                 this.dead = true;
             }else if((this.position.x > goalLocation.x-2 && this.position.x < goalLocation.x+2) && (this.position.y > goalLocation.y-2 && this.position.y < goalLocation.y+2)){ 
                 this.atGoal = true;
+            }else if((this.position.x > 250 && this.position.x < 350) && (this.position.y > 250 && this.position.y < 270)){ 
+                this.dead = true;
             }else if(this.brain.currentMove < brainLength-1){
                 this.brain.currentMove++;
             }else{

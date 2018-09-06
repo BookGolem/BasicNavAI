@@ -53,6 +53,9 @@ function createBoard(){
     ctx.stroke();
 
     //Add obstacles
+    ctx.fillStyle="#888888";    
+    ctx.fillRect(250,250,100,20);   //Target point is (301, 50)
+    ctx.stroke();
     //TODO
 }
 
@@ -90,19 +93,6 @@ function runGame(moveNumber){
         document.getElementById("mutateButton").disabled = false;
     }
 
-}
-
-////// Game Logic ///////
-function checkIsDead(player){
-    //Checks whether the player is dead
-    if(player.dead){
-        return true;
-    }else if(player.brain.currentMove > player.brain.moves.length-1){
-        player.dead = true;
-        return true;
-    }else{
-        return false;
-    }
 }
 
 ////// Classes //////
